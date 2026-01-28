@@ -107,18 +107,17 @@
       "ты че абалдел???????????"
     ];
 
-   yesBtn.onclick = () => {
-  // меняем текст заголовка
-  title.textContent = "НУ КОНЕЧНО ТЫ СОГЛАСИЛСЯ БЫТЬ МОИМ ВАЛЕПЕТИНОМ, ЛЮБОВЬ МОЯ 💖";
+    yesBtn.onclick = () => {
+      // ФИКС: используем textContent вместо innerText
+      title.textContent = "НУ КОНЕЧНО ТЫ СОГЛАСИЛСЯ БЫТЬ МОИМ ВАЛЕПЕТИНОМ, ЛЮБОВЬ МОЯ 💖";
 
       img.src = "img1.png"; // файл в репозитории
       buttons.style.display = "none";
 
-      // музыка ТОЛЬКО после клика
+      // музыка после клика
       const yt = document.createElement("iframe");
       yt.style.display = "none";
-      yt.src =
-        "https://www.youtube.com/embed/GEo7W-uJNkc?autoplay=1&loop=1&playlist=GEo7W-uJNkc";
+      yt.src = "https://www.youtube.com/embed/GEo7W-uJNkc?autoplay=1&loop=1&playlist=GEo7W-uJNkc";
       yt.allow = "autoplay";
       document.body.appendChild(yt);
 
@@ -149,5 +148,3 @@
 
 </body>
 </html>
-
-
