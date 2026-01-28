@@ -115,9 +115,13 @@
       "ты че абалдел???????????"
     ];
 
-    function yesClick() {
-      // финальная картинка из репозитория
-      document.getElementById("mainImage").src = "img1.png";
+   yesBtn.onclick = () => {
+      title.innerText =
+        "НУ КОНЕЧНО ТЫ СОГЛАСИЛСЯ БЫТЬ МОИМ ВАЛЕПЕТИНОМ, ЛЮБОВЬ МОЯ 💖";
+
+      img.src = "img1.png"; // ← твоя финальная фотка в репо
+      startHearts();
+
 
       // скрываем кнопки
       document.querySelector(".buttons").style.display = "none";
@@ -172,3 +176,4 @@ document.body.appendChild(ytFrame);
   
 </body>
 </html>
+
