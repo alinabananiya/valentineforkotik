@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Валентинка</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #000;
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    h1 {
+      max-width: 90%;
+      margin-bottom: 24px;
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    img {
+      max-width: 90%;
+      max-height: 60vh;
+      margin-bottom: 24px;
+      border-radius: 12px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    button {
+      padding: 14px 22px;
+      font-size: 15px;
+      font-family: 'Montserrat', sans-serif;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    #yesBtn {
+      background: #ff9acb;
+      font-weight: 600;
+    }
+
+    #noBtn {
+      background: #444;
+      color: white;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 24px;
+      animation: float 3s linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      from { opacity: 1; transform: translateY(0); }
+      to { opacity: 0; transform: translateY(-220px); }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>
+    Будет ли котёночек Сергей моим любимым котёночком на День Святого Валентина?
+  </h1>
+
+  <!-- ТВОЯ ГИФКА -->
+  <img id="mainImage"
+       src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2t1aXhiaG14ZTBvYzZ2Y3plYnd0azV2OGd1aGM1djZoY2UybDZ4cSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vDhDcIEmShbUI/giphy.gif"
+       alt="valentine gif">
+
+  <div class="buttons">
+    <button id="yesBtn" onclick="yesClick()">
+      ну, конечно, да, я же не дурак
+    </button>
+    <button id="noBtn" onclick="noClick()">
+      нет, я гамнярик
+    </button>
+  </div>
+
+  <script>
+    let noClicks = 0;
+    let yesScale = 1;
+
+    const noTexts = [
+      "уверен???",
+      "подумай еще!!!!",
+      "ты че абалдел???????????"
+    ];
+
+    function yesClick() {
+      document.getElementById("mainImage").src =
+        "https://cdn.discordapp.com/attachments/980382299730370620/1466005046641692672/caa5acde-215c-4c04-8369-6de5a6b2c3f3.png";
+
+      document.querySelector(".buttons").style.display = "none";
+
+      for (let i = 0; i < 25; i++) createHeart();
+    }
+
+    function noClick() {
+      if (noClicks < noTexts.length) {
+        document.getElementById("noBtn").innerText = noTexts[noClicks];
+        noClicks++;
+      }
+
+      yesScale += 0.25;
+      document.getElementById("yesBtn").style.transform =
+        `scale(${yesScale})`;
+    }
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = "💖";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.bottom = "0px";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 3000);
+    }
+  </script>
+
+</body>
+</html>
