@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Валентинка</title>
 
-  <!-- Montserrat -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -40,8 +39,6 @@
       position: relative;
       display: flex;
       gap: 16px;
-      justify-content: center;
-      align-items: center;
     }
 
     button {
@@ -66,7 +63,6 @@
       color: white;
     }
 
-    /* сердечки */
     .heart {
       position: absolute;
       font-size: 24px;
@@ -80,32 +76,28 @@
     }
   </style>
 </head>
+
 <body>
 
-  <h1>
+  <h1 id="title">
     Будет ли котёночек Сергей моим любимым котёночком на День Святого Валентина?
   </h1>
 
-  <!-- стартовая гифка -->
   <img id="mainImage"
-    src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2t1aXhiaG14ZTBvYzZ2Y3plYnd0azV2OGd1aGM1djZoY2UybDZ4cSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vDhDcIEmShbUI/giphy.gif"
-    alt="valentine gif">
+    src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2t1aXhiaG14ZTBvYzZ2Y3plYnd0azV2OGd1aGM1djZoY2UybDZ4cSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vDhDcIEmShbUI/giphy.gif">
 
   <div class="buttons">
-    <button id="yesBtn" onclick="yesClick()">
-      ну, конечно, да, я же не дурак
-    </button>
-    <button id="noBtn" onclick="noClick()">
-      нет, я гамнярик
-    </button>
+    <button id="yesBtn">ну, конечно, да, я же не дурак</button>
+    <button id="noBtn">нет, я гамнярик</button>
   </div>
 
-  <!-- музыка из Шрека -->
-  <audio id="shrekMusic" loop>
-    <source src="https://vgmsite.com/soundtracks/shrek-2001/ijyzwxtf/01.%20All%20Star.mp3" type="audio/mpeg">
-  </audio>
-
   <script>
+    const title = document.getElementById("title");
+    const img = document.getElementById("mainImage");
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const buttons = document.querySelector(".buttons");
+
     let noClicks = 0;
     let yesScale = 1;
 
@@ -115,44 +107,34 @@
       "ты че абалдел???????????"
     ];
 
-   yesBtn.onclick = () => {
+    yesBtn.onclick = () => {
       title.innerText =
         "НУ КОНЕЧНО ТЫ СОГЛАСИЛСЯ БЫТЬ МОИМ ВАЛЕПЕТИНОМ, ЛЮБОВЬ МОЯ 💖";
 
-      img.src = "img1.png"; // ← твоя финальная фотка в репо
-      startHearts();
+      img.src = "img1.png"; // файл в репозитории
+      buttons.style.display = "none";
 
+      // музыка ТОЛЬКО после клика
+      const yt = document.createElement("iframe");
+      yt.style.display = "none";
+      yt.src =
+        "https://www.youtube.com/embed/GEo7W-uJNkc?autoplay=1&loop=1&playlist=GEo7W-uJNkc";
+      yt.allow = "autoplay";
+      document.body.appendChild(yt);
 
-      // скрываем кнопки
-      document.querySelector(".buttons").style.display = "none";
-
-      // включаем музыку
-     const ytFrame = document.createElement("iframe");
-ytFrame.style.display = "none";
-ytFrame.src = "https://www.youtube.com/embed/GEo7W-uJNkc?autoplay=1&loop=1&playlist=GEo7W-uJNkc";
-ytFrame.allow = "autoplay; encrypted-media";
-document.body.appendChild(ytFrame);
-
-      // сердечки
       for (let i = 0; i < 30; i++) createHeart();
-    }
+    };
 
-    function noClick() {
+    noBtn.onclick = () => {
       if (noClicks < noTexts.length) {
-        document.getElementById("noBtn").innerText = noTexts[noClicks];
+        noBtn.innerText = noTexts[noClicks];
         noClicks++;
       }
 
-      // увеличиваем кнопку ДА
       yesScale += 0.25;
-      document.getElementById("yesBtn").style.transform =
-        `scale(${yesScale})`;
-
-      // уводим кнопку НЕТ вправо
-      const offset = yesScale * 45;
-      document.getElementById("noBtn").style.transform =
-        `translateX(${offset}px)`;
-    }
+      yesBtn.style.transform = `scale(${yesScale})`;
+      noBtn.style.transform = `translateX(${yesScale * 45}px)`;
+    };
 
     function createHeart() {
       const heart = document.createElement("div");
@@ -161,19 +143,9 @@ document.body.appendChild(ytFrame);
       heart.style.left = Math.random() * 100 + "vw";
       heart.style.bottom = "0px";
       document.body.appendChild(heart);
-
       setTimeout(() => heart.remove(), 3000);
     }
   </script>
-<div style="margin-top: 20px;">
-  <iframe width="0" height="0"
-    src="https://www.youtube.com/embed/GEo7W-uJNkc?autoplay=1&loop=1&playlist=GEo7W-uJNkc"
-    frameborder="0"
-    allow="autoplay; encrypted-media"
-    allowfullscreen>
-  </iframe>
-</div>
-  
+
 </body>
 </html>
-
