@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Валентинка</title>
 
+  <!-- Montserrat -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -36,10 +37,11 @@
     }
 
     .buttons {
+      position: relative;
       display: flex;
       gap: 16px;
-      flex-wrap: wrap;
       justify-content: center;
+      align-items: center;
     }
 
     button {
@@ -50,11 +52,13 @@
       border-radius: 10px;
       cursor: pointer;
       transition: transform 0.3s ease;
+      white-space: nowrap;
     }
 
     #yesBtn {
       background: #ff9acb;
       font-weight: 600;
+      z-index: 1;
     }
 
     #noBtn {
@@ -62,6 +66,7 @@
       color: white;
     }
 
+    /* сердечки */
     .heart {
       position: absolute;
       font-size: 24px;
@@ -81,10 +86,10 @@
     Будет ли котёночек Сергей моим любимым котёночком на День Святого Валентина?
   </h1>
 
-  <!-- ТВОЯ ГИФКА -->
+  <!-- стартовая гифка -->
   <img id="mainImage"
-       src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2t1aXhiaG14ZTBvYzZ2Y3plYnd0azV2OGd1aGM1djZoY2UybDZ4cSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vDhDcIEmShbUI/giphy.gif"
-       alt="valentine gif">
+    src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2t1aXhiaG14ZTBvYzZ2Y3plYnd0azV2OGd1aGM1djZoY2UybDZ4cSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vDhDcIEmShbUI/giphy.gif"
+    alt="valentine gif">
 
   <div class="buttons">
     <button id="yesBtn" onclick="yesClick()">
@@ -94,6 +99,11 @@
       нет, я гамнярик
     </button>
   </div>
+
+  <!-- музыка из Шрека -->
+  <audio id="shrekMusic" loop>
+    <source src="https://vgmsite.com/soundtracks/shrek-2001/ijyzwxtf/01.%20All%20Star.mp3" type="audio/mpeg">
+  </audio>
 
   <script>
     let noClicks = 0;
@@ -106,12 +116,21 @@
     ];
 
     function yesClick() {
-      document.getElementById("mainImage").src =
-        "https://cdn.discordapp.com/attachments/980382299730370620/1466005046641692672/caa5acde-215c-4c04-8369-6de5a6b2c3f3.png";
+      // финальная картинка из репозитория
+      document.getElementById("mainImage").src = "img1.png";
 
+      // скрываем кнопки
       document.querySelector(".buttons").style.display = "none";
 
-      for (let i = 0; i < 25; i++) createHeart();
+      // включаем музыку
+     const ytFrame = document.createElement("iframe");
+ytFrame.style.display = "none";
+ytFrame.src = "https://www.youtube.com/embed/GEo7W-uJNkc?autoplay=1&loop=1&playlist=GEo7W-uJNkc";
+ytFrame.allow = "autoplay; encrypted-media";
+document.body.appendChild(ytFrame);
+
+      // сердечки
+      for (let i = 0; i < 30; i++) createHeart();
     }
 
     function noClick() {
@@ -120,9 +139,15 @@
         noClicks++;
       }
 
+      // увеличиваем кнопку ДА
       yesScale += 0.25;
       document.getElementById("yesBtn").style.transform =
         `scale(${yesScale})`;
+
+      // уводим кнопку НЕТ вправо
+      const offset = yesScale * 45;
+      document.getElementById("noBtn").style.transform =
+        `translateX(${offset}px)`;
     }
 
     function createHeart() {
@@ -132,9 +157,18 @@
       heart.style.left = Math.random() * 100 + "vw";
       heart.style.bottom = "0px";
       document.body.appendChild(heart);
+
       setTimeout(() => heart.remove(), 3000);
     }
   </script>
-
+<div style="margin-top: 20px;">
+  <iframe width="0" height="0"
+    src="https://www.youtube.com/embed/GEo7W-uJNkc?autoplay=1&loop=1&playlist=GEo7W-uJNkc"
+    frameborder="0"
+    allow="autoplay; encrypted-media"
+    allowfullscreen>
+  </iframe>
+</div>
+  
 </body>
 </html>
